@@ -1,21 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>conskku_front</title>
-    <link rel="stylesheet" href="src/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frame Transition Example</title>
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f5f5f5;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        width: 300px;
+        height: 400px;
+        background-color: #eae8e6;
+        border-radius: 10px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .progress-bar {
+        height: 10px;
+        background-color: #1a481b;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+    .progress-bar .progress {
+        height: 100%;
+        background-color: #b7b7b7;
+        border-radius: 5px;
+    }
+    .button {
+        width: 100px;
+        height: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        background-color: #1a481b;
+        color: white;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        align-self: center;
+    }
+</style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to conskku_front</h1>
-    </header>
-    <main>
-        <p>This is the main content area.</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 conskku_front. All rights reserved.</p>
-    </footer>
-    <script src="src/js/main.js"></script>
+
+<div class="container" id="frame1">
+    <!-- Frame 1 content -->
+    <div class="progress-bar">
+        <div class="progress" style="width: 80%;"></div>
+    </div>
+    <div class="button" onclick="loadFrame2()">Next</div>
+</div>
+
+<div id="frame2" class="container" style="display: none;">
+    <!-- Frame 2 will be loaded here -->
+</div>
+
+<script>
+    function loadFrame2() {
+        fetch('src/pages/frame2.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('frame1').style.display = 'none'; // Hide Frame 1
+                const frame2 = document.getElementById('frame2');
+                frame2.style.display = 'flex'; // Show Frame 2 container
+                frame2.innerHTML = data; // Load Frame 2 content
+            })
+            .catch(error => console.error('Error loading Frame 2:', error));
+    }
+</script>
+
 </body>
 </html>
