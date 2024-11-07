@@ -1,19 +1,164 @@
-<!-- Frame 2 content -->
-<div class="progress-bar">
-  <div class="progress" style="width: 20%"></div>
-</div>
-<div style="display: flex; justify-content: space-between; padding: 20px">
-  <div
-    class="button"
-    style="
-      background-color: #ffffff;
-      color: black;
-      width: 40px;
-      height: 20px;
-      line-height: 20px;
-    "
-  >
-    White
-  </div>
-  <div class="button">Green</div>
-</div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tag Layout</title>
+    <style>
+        body {
+            overflow: hidden;
+            height: 100%;
+            font-family: 'Pretendard Variable', sans-serif;
+            background-color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .header {
+          width: 100%;
+          background-color: #114014;
+          padding: 20px 20px; /* 상하 20px, 좌우 20px */
+          display: flex;
+          justify-content: center; /* 왼쪽 정렬 */
+          align-items: center;
+        }
+        .header-content {
+          background-color: white;
+          border-radius: 18px;
+          padding: 10px 20px;
+          display: flex;
+          gap: 10px;
+          align-items: center;
+          width: 85%; /* 부모의 너비에 맞게 확장 */
+        }
+        .filter-tag {
+            background-color: #B6DD81;
+            color: #114014;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            white-space: nowrap;
+        }
+        .section-title-container {
+            width: 100%;
+            max-width: 1024px;
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            position: relative;
+        }
+        .section-title {
+            font-size: 20px;
+            color: #809663;
+            margin-left: 20px;
+        }
+        .section-line {
+            height: 2px;
+            background-color: #809663;
+            position: absolute;
+            left: 20px;
+            top: 28px;
+            width: 80px;
+        }
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            max-width: 1024px;
+            padding: 0 20px;
+        }
+        .tag {
+            padding: 11px 22px;
+            border: 2px solid #9BC661;
+            border-radius: 26px;
+            background-color: white;
+            color: #114014;
+            font-size: 16px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .right-arrow {
+            position: fixed;
+            bottom: 30px; /* 아래쪽에서 20px */
+            right: 30px; /* 오른쪽에서 20px */
+            width: 70px; /* 이미지 크기는 원하는 크기로 조정하세요 */
+            height: auto; /* 비율을 유지하며 크기 조정 */
+        }
+        .left-arrow {
+            position: fixed;
+            bottom: 30px; /* 아래쪽에서 20px */
+            left: 30px; 
+            width: 70px; /* 이미지 크기는 원하는 크기로 조정하세요 */
+            height: auto; /* 비율을 유지하며 크기 조정 */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <div class="header-content">
+            <div class="filter-tag">소프트웨어</div>
+            <div class="filter-tag">고양이</div>
+        </div>
+    </div>
+
+    <!-- 일반 Section -->
+    <div class="section-title-container">
+        <div class="section-title">일반</div>
+        <div class="section-line" style="width: 100px; left: 20px;"></div>
+    </div>
+    <div class="tag-container">
+        <div class="tag">명륜당</div>
+        <div class="tag">전공책</div>
+        <div class="tag">축제</div>
+        <div class="tag">은행나무</div>
+        <div class="tag">피자</div>
+        <div class="tag">돈까스</div>
+        <div class="tag">서브웨이</div>
+        <div class="tag">고양이</div>
+        <div class="tag">까치</div>
+        <div class="tag">강아지</div>
+        <div class="tag">기쁨</div>
+        <div class="tag">우울</div>
+        <div class="tag">피곤</div>
+        <div class="tag">후드티</div>
+        <div class="tag">청바지</div>
+        <div class="tag">슬리퍼</div>
+        <div class="tag">축구</div>
+        <div class="tag">야구</div>
+        <div class="tag">돈</div>
+        <div class="tag">무지개</div>
+    </div>
+
+    <!-- 전공 Section -->
+    <div class="section-title-container">
+        <div class="section-title">전공</div>
+        <div class="section-line" style="width: 80px; left: 20px;"></div>
+    </div>
+    <div class="tag-container">
+        <div class="tag">소프트웨어학과</div>
+        <div class="tag">건축학과</div>
+        <div class="tag">철학학과</div>
+        <div class="tag">경영학과</div>
+        <div class="tag">미술학과</div>
+        <div class="tag">기계공학과</div>
+        <div class="tag">생명과학과</div>
+        <div class="tag">물리학과</div>
+        <div class="tag">사확과</div>
+        <div class="tag">약학과</div>
+    </div>
+
+    <img src="../images/rightarrow.svg" alt="Right Arrow" class="right-arrow">
+    <img src="../images/leftarrow.svg" alt="Left Arrow" class="left-arrow">
+
+</body>
+</html>
