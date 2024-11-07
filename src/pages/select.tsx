@@ -1,10 +1,15 @@
 import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PushPinOutlinedIcon from "@mui/icons-material/PushPinOutlined";
+import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
+import ArrowForwardRoundedIcon from "@mui/icons-material/ArrowForwardRounded";
 import Column from "../components/Column/Column";
 import Row from "../components/Row/Row";
 import Line, { LineDirection } from "../components/Line/Line";
 import Button from "../components/Button/Button";
+import Footer from "../components/Footer/Footer";
+import IconButton from "../components/Button/IconButton";
+import useFetch from "../hooks/useFetch";
 
 const wordsCommon = [
   "명륜당",
@@ -42,8 +47,11 @@ const wordsDepartment = [
 
 const SelectPage: React.FC = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+
+  const { data, loading, error, fetchData } = useFetch();
 
   const handleWordClick = (word: string) => {
     setSelectedWords((prev) =>
@@ -55,10 +63,23 @@ const SelectPage: React.FC = () => {
     );
   };
 
-  // const handleSubmit = () => {
-  //   // call api
-  //   navigate("/result", { state: { selectedWords } });
-  // };
+  const handleBackClick = () => {
+    setSelectedWords([]);
+    navigate("/");
+  };
+
+  const handleForwardClick = async () => {
+    if (selectedWords.length == 0) return;
+
+    // todo : call api
+    setLoading(true);
+    setSelectedWords([]);
+    await fetchData("/api/endpoint", {
+      method: "POST",
+      body: { selectedWords },
+    });
+    // navigate("/loading", { state: { selectedWords } });
+  };
 
   return (
     <div className="flex flex-col h-screen bg-white overflow-hidden">
@@ -76,30 +97,40 @@ const SelectPage: React.FC = () => {
             className="mx-4"
           />
 
-          <Row className="flex-grow items-center">
-            <p className="text-black">1234</p>
-            {/* add selections */}
+          <Row className="flex-grow items-center ml-2 gap-x-6">
+            {selectedWords.map((word, index) => (
+              <Button
+                index={index}
+                text={word}
+                onClick={() => handleWordClick(word)}
+                selected={selectedWords.includes(word)}
+              />
+            ))}
           </Row>
+
+          <div className="flex-grow text-sm text-black text-center mx-2 ml-auto whitespace-nowrap">
+            3개의 키워드를 선택하세요.
+          </div>
         </Row>
       </Row>
 
       <div className="flex-grow w-full h-full">
         <Column align="start" className="w-full h-min px-12 mt-12">
-          <p className="text-xl text-black mb-4">일반</p>
+          <p className="text-xl text-skku-green-dark mb-2">일반</p>
           {/* <div className="w-60 border-t-2 border-black mb-4"></div> */}
           <Line
             dir={LineDirection.Horizontal}
             length={60}
             size={2}
-            className="mb-4"
+            className="mb-4 border-skku-green-dark"
           ></Line>
         </Column>
 
         {/* Common words Button */}
-        <div className="w-full p-12 h-min flex flex-wrap justify-start gap-4 mb-4 text-xl">
+        <div className="w-full px-12  h-min flex flex-wrap justify-start gap-4 mb-4 text-xl">
           {wordsCommon.map((word, index) => (
             <Button
-              key={index}
+              index={index}
               text={word}
               onClick={() => handleWordClick(word)}
               selected={selectedWords.includes(word)}
@@ -108,21 +139,21 @@ const SelectPage: React.FC = () => {
         </div>
 
         <Column align="start" className="w-full px-12 mt-12">
-          <p className="text-xl text-black mb-4">전공</p>
+          <p className="text-xl text-skku-green-dark mb-2">전공</p>
           {/* <div className="w-60 border-t-2 border-black mb-4"></div> */}
           <Line
             dir={LineDirection.Horizontal}
             length={60}
             size={2}
-            className="mb-4"
+            className="mb-4 border-skku-green-dark"
           ></Line>
         </Column>
 
         {/* Department words Button Grid */}
-        <div className="w-full p-12 h-min flex flex-wrap justify-start gap-4">
+        <div className="w-full px-12 h-min flex flex-wrap justify-start gap-4 text-xl">
           {wordsDepartment.map((word, index) => (
             <Button
-              key={index}
+              index={index}
               text={word}
               onClick={() => handleWordClick(word)}
               selected={selectedWords.includes(word)}
@@ -130,6 +161,31 @@ const SelectPage: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Footer>
+        <IconButton onClick={handleBackClick}>
+          <ArrowBackRoundedIcon className="flex text-black" fontSize="large" />
+        </IconButton>
+        <IconButton onClick={handleForwardClick}>
+          <ArrowForwardRoundedIcon
+            className="flex text-black"
+            fontSize="large"
+          />
+        </IconButton>
+      </Footer>
+
+      {isLoading && (
+        <div className="fixed inset-0 bg-white flex items-center justify-center">
+          <div className="text-center">
+            <Row className="gap-6 mb-8">
+              <div className="animate-bounce rounded-full h-12 w-12 bg-skku-green"></div>
+              <div className="animate-bounce rounded-full h-12 w-12 bg-skku-green"></div>
+              <div className="animate-bounce rounded-full h-12 w-12 bg-skku-green"></div>
+            </Row>
+            <p className="mt-4 text-lg text-black">로딩 중...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

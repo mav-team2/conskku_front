@@ -27,7 +27,7 @@ const Line: React.FC<LineProps> = ({ dir, length, size = 1, className }) => {
             : isFull
             ? "h-full"
             : `h-${length}`
-        } ${border} border-black ${className}`}
+        } ${border} ${className}`}
       ></div>
     </>
   );

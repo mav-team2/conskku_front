@@ -30,18 +30,26 @@ const Home: React.FC = () => {
 
       {/* Title and Description */}
       <div className="relative min-w-16 max-w-xl z-10 text-center px-4">
-        <h1 className="text-8xl mb-2 underline decoration-2 underline-offset-8 whitespace-pre-line leading-normal font-SF text-black">
+        <h1 className="text-8xl mb-2 align-text-top underline decoration-0 underline-offset-8 whitespace-pre-line leading-normal font-SF text-black">
           성균관을
           <br />
           잇다.
         </h1>
-        <p className="text-xl text-slate-600/80 whitespace-pre-line">
+        <p
+          className={`text-xl text-slate-600/80 whitespace-pre-line transition-opacity duration-1000 ${
+            isFadingOut ? "opacity-0" : "opacity-100"
+          }`}
+        >
           description
         </p>
       </div>
 
       {/* Touch to start message */}
-      <div className="absolute bottom-20 text-black/80 text-lg animate-pulse">
+      <div
+        className={`absolute bottom-20 text-black/80 text-lg animate-pulse transition-opacity duration-1000 ${
+          isFadingOut ? "opacity-0" : "opacity-100"
+        }`}
+      >
         터치하세요
       </div>
     </div>
