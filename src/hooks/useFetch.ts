@@ -35,10 +35,11 @@ function useFetch<T>(): UseFetchResult<T> {
 
       const result = await response.json();
       console.log("get data", result);
-      setData(result);
 
       // delay for generating
       await delay(3000);
+
+      setData(result);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"

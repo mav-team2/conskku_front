@@ -35,13 +35,6 @@ const Home: React.FC = () => {
           <br />
           잇다.
         </h1>
-        <p
-          className={`text-xl text-slate-600/80 whitespace-pre-line transition-opacity duration-1000 ${
-            isFadingOut ? "opacity-0" : "opacity-100"
-          }`}
-        >
-          description
-        </p>
       </div>
 
       {/* Touch to start message */}

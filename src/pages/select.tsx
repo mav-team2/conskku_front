@@ -74,10 +74,9 @@ const SelectPage: React.FC = () => {
     setLoading(true);
 
     const prompt = selectedWords.join(",");
-    const body = JSON.stringify({
-      preset_id: 4,
-      input_prompt: prompt,
-    });
+
+    const presetId = selectedWords.includes("명륜당") ? 5 : 4;
+
     // todo : call api
     setSelectedWords([]);
 
@@ -90,7 +89,7 @@ const SelectPage: React.FC = () => {
           Accept: "application/json",
         },
         body: {
-          preset_id: 4,
+          preset_id: presetId,
           input_prompt: prompt,
         },
       }
