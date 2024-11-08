@@ -35,6 +35,10 @@ const Home: React.FC = () => {
           <br />
           잇다.
         </h1>
+        <p className="text-xl text-black/80 whitespace-pre-line">
+          오늘 당신의 생각을, 평범한 일상의 단어들로 표현해보세요.<br></br>
+          당신의 메시지가 다른 캠퍼스의 누군가에게 울림이 될 수 있습니다.
+        </p>
       </div>
 
       {/* Touch to start message */}
