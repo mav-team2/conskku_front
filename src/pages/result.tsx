@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ResultPage: React.FC = () => {
   const [visible, setVisible] = useState(false);
@@ -20,8 +20,6 @@ const ResultPage: React.FC = () => {
 
     return () => clearTimeout(timer);
   }, [navigate]);
-
-  const location = useLocation();
 
   return (
     <div className="flex flex-col h-screen bg-white item-center justify-center overflow-hidden">
