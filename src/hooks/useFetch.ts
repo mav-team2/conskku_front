@@ -37,7 +37,7 @@ function useFetch<T>(): UseFetchResult<T> {
       console.log("get data", result);
 
       // delay for generating
-      await delay(3000);
+      await delay(60000);
 
       setData(result);
     } catch (err) {
