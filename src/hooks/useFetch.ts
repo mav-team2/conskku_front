@@ -2,7 +2,6 @@ import { useState } from "react";
 
 interface UseFetchResult<T> {
   data: T | null;
-  loading: boolean;
   error: string | null;
   fetchData: (url: string, options: UseFetchOptions) => Promise<void>;
 }
@@ -13,13 +12,15 @@ interface UseFetchOptions {
   body?: any;
 }
 
+function delay(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function useFetch<T>(): UseFetchResult<T> {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async (url: string, options: UseFetchOptions) => {
-    setLoading(true);
     setError(null);
     try {
       const response = await fetch(url, {
@@ -33,17 +34,19 @@ function useFetch<T>(): UseFetchResult<T> {
       }
 
       const result = await response.json();
+      console.log("get data", result);
       setData(result);
+
+      // delay for generating
+      await delay(3000);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "An unknown error occurred"
       );
-    } finally {
-      setLoading(false);
     }
   };
 
-  return { data, loading, error, fetchData };
+  return { data, error, fetchData };
 }
 
 export default useFetch;

@@ -47,11 +47,11 @@ const wordsDepartment = [
 
 const SelectPage: React.FC = () => {
   const [selectedWords, setSelectedWords] = useState<string[]>([]);
-  const [isLoading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const { data, loading, error, fetchData } = useFetch();
+  const { data, error, fetchData } = useFetch();
 
   const handleWordClick = (word: string) => {
     setSelectedWords((prev) =>
@@ -71,14 +71,40 @@ const SelectPage: React.FC = () => {
   const handleForwardClick = async () => {
     if (selectedWords.length == 0) return;
 
-    // todo : call api
     setLoading(true);
-    setSelectedWords([]);
-    await fetchData("/api/endpoint", {
-      method: "POST",
-      body: { selectedWords },
+
+    const prompt = selectedWords.join(",");
+    const body = JSON.stringify({
+      preset_id: 4,
+      input_prompt: prompt,
     });
-    // navigate("/loading", { state: { selectedWords } });
+    // todo : call api
+    setSelectedWords([]);
+
+    await fetchData(
+      "http://ec2-43-203-245-187.ap-northeast-2.compute.amazonaws.com/api/call",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Content-Type 헤더 추가
+          Accept: "application/json",
+        },
+        body: {
+          preset_id: 4,
+          input_prompt: prompt,
+        },
+      }
+    );
+
+    if (error) {
+      console.error(error);
+      return;
+    } else {
+      console.log("data", data);
+
+      navigate("/result", { state: { selectedWords } });
+      setLoading(false);
+    }
   };
 
   return (
@@ -108,8 +134,8 @@ const SelectPage: React.FC = () => {
             ))}
           </Row>
 
-          <div className="flex-grow text-sm text-black text-center mx-2 ml-auto whitespace-nowrap">
-            3개의 키워드를 선택하세요.
+          <div className="flex-grow text-xl text-black text-center mx-4 ml-auto whitespace-nowrap">
+            / 3
           </div>
         </Row>
       </Row>
@@ -174,7 +200,7 @@ const SelectPage: React.FC = () => {
         </IconButton>
       </Footer>
 
-      {isLoading && (
+      {loading && (
         <div className="fixed inset-0 bg-white flex items-center justify-center">
           <div className="text-center">
             <Row className="gap-6 mb-8">
